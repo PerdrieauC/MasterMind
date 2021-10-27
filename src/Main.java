@@ -1,13 +1,15 @@
+import jeu.*;
 public class Main {
 
     public static void main(String[] args){
-        System.out.println(getRandomCode(4));
+        System.out.println(getRandomCode("easy"));
     }
 
-    public static Ligne getRandomCode(int size, int diff){
-        Pion[] res = new Pion[size];
-        for(int i=0;i<size;i++){
-            res[i] = new Pion(Constantes.colors[0]);
+    public static Ligne getRandomCode(String diff){
+        int dif = Constantes.difficulty.get(diff);
+        Pion[] res = new Pion[5];
+        for(int i=0;i<5;i++){
+            res[i] = new Pion(Constantes.colors[(int)(Math.random()*dif)]);
         }
         return new Ligne(res);
     }

@@ -12,4 +12,11 @@ public class Pion {
     public Color getCouleur() {
         return couleur;
     }
+
+    @Override
+    public String toString() {
+        return "Pion{" +
+                "couleur=" + couleur +
+                '}';
+    }
 }

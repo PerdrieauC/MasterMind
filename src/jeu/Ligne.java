@@ -13,4 +13,11 @@ public class Ligne {
     public ArrayList<Pion> getListe_pions() {
         return liste_pions;
     }
+
+    @Override
+    public String toString() {
+        return "Ligne{" +
+                "liste_pions=" + liste_pions +
+                '}';
+    }
 }

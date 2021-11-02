@@ -1,16 +1,12 @@
 import jeu.*;
+
+import java.awt.*;
+
 public class Main {
 
     public static void main(String[] args){
-        System.out.println(getRandomCode("easy"));
+        Plateau mastermind = new Plateau("easy");
+        System.out.println(new Pion(Constantes.colors[0]).getCouleur()==new Pion(Constantes.colors[0]).getCouleur());
     }
 
-    public static Ligne getRandomCode(String diff){
-        int dif = Constantes.difficulty.get(diff);
-        Pion[] res = new Pion[5];
-        for(int i=0;i<5;i++){
-            res[i] = new Pion(Constantes.colors[(int)(Math.random()*dif)]);
-        }
-        return new Ligne(res);
-    }
 }

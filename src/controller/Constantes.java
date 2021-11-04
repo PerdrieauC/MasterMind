@@ -1,4 +1,4 @@
-package jeu;
+package controller;
 
 import java.awt.*;
 import java.util.HashMap;

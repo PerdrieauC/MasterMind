@@ -16,11 +16,12 @@ public class Ligne {
     }
 
     public boolean containsColor(Color c){
-        for (Pion liste_pion : liste_pions) {
-            if (liste_pion.getCouleur() == c) return true;
+        for (Pion p : liste_pions) {
+            if (p.getCouleur() == c) return true;
         }
         return false;
     }
+
     @Override
     public String toString() {
         return "" + liste_pions + "\n";

@@ -6,7 +6,9 @@ import java.util.HashMap;
 import static java.awt.Color.*;
 
 public final class Constantes {
+    public final static String[] colorsChar = {"rd", "bu", "gr", "wi", "bk", "cy", "or", "mg"};
     public final static Color[] colors = new Color[]{red, blue, green, white, black, cyan, orange, magenta};
+    public final static int colorsNumber=8;
     public final static HashMap<String, Integer> colorNumber = new HashMap<>() {{
         put("easy", 6);
         put("normal", 7);

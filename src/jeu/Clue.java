@@ -16,4 +16,12 @@ public class Clue {
     public int getGood() {
         return good;
     }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "perfect=" + perfect +
+                ", good=" + good +
+                "}\n";
+    }
 }

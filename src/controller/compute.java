@@ -26,6 +26,9 @@ public class compute {
         for(int i = 0; i< ligneSize; i++){
             if(l.getPion(i).getCouleur()==code.getPion(i).getCouleur())perfect++;
         }
+        if(perfect==ligneSize){
+            System.out.println("gaggnnnnnnnne"); //TODO
+        }
         int good=-perfect;
         for(int i = 0; i< ligneSize; i++){
             if(code.containsColor(l.getPion(i).getCouleur()))good+=1;

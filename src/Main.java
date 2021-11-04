@@ -4,7 +4,7 @@ import controller.*;
 public class Main {
 
     public static void main(String[] args){
-        Plateau mastermind = new Plateau("easy");
+        Game mastermind = new Game("easy");
         mastermind.inputLigne(compute.getRandomCode(4,6,false));
         mastermind.inputLigne(compute.getRandomCode(4,6,false));
         mastermind.inputLigne(compute.getRandomCode(4,6,false));

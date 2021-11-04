@@ -15,18 +15,36 @@ public class Plateau {
         this.tryNumber = try_size;
         this.secretCode = secretCode;
     }
-    public Ligne get_ligne(int n) {
+
+    public int getInputSize(){
+        return listeLignes.size();
+    }
+    public Ligne getLigne(int n) {
         return listeLignes.get(n);
+    }
+    public Clue getClue(int n) {
+        return listeClues.get(n);
+    }
+    public Ligne getSecretCode() {
+        return secretCode;
+    }
+
+    public int getLigneSize() {
+        return ligneSize;
+    }
+
+    public int getTryNumber() {
+        return tryNumber;
     }
 
     public int size(){
         return listeLignes.size();
     }
 
-    public void inputLigne(Ligne l){
-        if(listeLignes.size()< tryNumber) {
+    public void inputLigneAndClue(Ligne l, Clue c){
+        if(getInputSize()< tryNumber) {
             listeLignes.add(l);
-            listeClues.add(compute.genClue(l, secretCode, ligneSize));
+            listeClues.add(c);
         }
     }
 

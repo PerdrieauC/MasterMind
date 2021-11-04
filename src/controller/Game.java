@@ -1,5 +1,6 @@
 package controller;
 
+import jeu.Clue;
 import jeu.Ligne;
 import jeu.Plateau;
 
@@ -7,10 +8,12 @@ public class Game {
     private Plateau plateau;
     private int colorNumber;
     private boolean duplicate; //allow for 2 or more times the same color
-    private boolean gagne;
+    private boolean win;
+    private boolean lose;
 
     public Game(String diff) {
-        this.gagne=false;
+        this.win=false;
+        this.lose=false;
         int ligneSize = Constantes.rowSize.get(diff);
         int tryNumber = Constantes.numberRow.get(diff);
         this.colorNumber = Constantes.colorNumber.get(diff);
@@ -20,7 +23,10 @@ public class Game {
     }
 
     public void inputLigne(Ligne l){
-        if(!gagne)this.plateau.inputLigne(l);
+        Clue tmpClue=compute.genClue(l,plateau.getSecretCode(),plateau.getLigneSize());
+        if(!win)this.plateau.inputLigneAndClue(l,tmpClue);
+        if(tmpClue.getPerfect()== plateau.getLigneSize())win=true;
+        else if(plateau.getInputSize()==plateau.getTryNumber())lose=true;
     }
 
     public Plateau getPlateau() {
@@ -35,8 +41,12 @@ public class Game {
         return duplicate;
     }
 
-    public boolean isGagne() {
-        return gagne;
+    public boolean isWin() {
+        return win;
+    }
+
+    public boolean isLose() {
+        return lose;
     }
 
     @Override
@@ -44,8 +54,9 @@ public class Game {
         return "Game{" +
                 ", colorNumber=" + colorNumber +
                 ", duplicate=" + duplicate +
-                ", gagne=" + gagne +
-                "plateau=" + plateau +
+                ", gagne=" + win +
+                ", perdu=" + lose +
+                ", plateau=" + plateau +
                 '}';
     }
 }

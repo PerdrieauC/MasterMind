@@ -1,20 +1,17 @@
 package jeu;
 
-import jeu.Ligne;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Plateau {
-    ArrayList<Ligne> liste_lignes = new ArrayList<>();
-    ArrayList<Clue> liste_clues = new ArrayList<>();
-    Ligne secret_code;
-    int ligne_size;
-    int try_size;
-    int color_number;
+    ArrayList<Ligne> listeLignes = new ArrayList<>();
+    ArrayList<Clue> listeClues = new ArrayList<>();
+    Ligne secretCode;
+    int ligneSize;
+    int tryNumber;
+    int colorNumber;
 
     public static Ligne getRandomCode(int ligne_size, int dif, boolean duplicate){
-        Pion[] res = new Pion[5];
+        Pion[] res = new Pion[ligne_size];
         for(int i=0;i<ligne_size;i++){
             res[i] = new Pion(Constantes.colors[(int)(Math.random()*dif)]);
         }
@@ -22,45 +19,52 @@ public class Plateau {
     }
 
     public Plateau(String diff) {
-        this.ligne_size = Constantes.rowSize.get(diff);
-        this.try_size = Constantes.numberRow.get(diff);
-        this.color_number = Constantes.colorNumber.get(diff);
-        this.secret_code=getRandomCode(ligne_size, color_number, Constantes.remise.get(diff));
+        this.ligneSize = Constantes.rowSize.get(diff);
+        this.tryNumber = Constantes.numberRow.get(diff);
+        this.colorNumber = Constantes.colorNumber.get(diff);
+        this.secretCode =getRandomCode(ligneSize, colorNumber, Constantes.remise.get(diff));
     }
     public Plateau(int ligne_size, int try_size, int color_number, boolean remise) {
-        this.ligne_size = ligne_size;
-        this.try_size = try_size;
-        this.color_number= color_number;
-        this.secret_code=getRandomCode(ligne_size, color_number, remise);
+        this.ligneSize = ligne_size;
+        this.tryNumber = try_size;
+        this.colorNumber = color_number;
+        this.secretCode =getRandomCode(ligne_size, color_number, remise);
     }
     public Ligne get_ligne(int n) {
-        return liste_lignes.get(n);
+        return listeLignes.get(n);
     }
 
     public int size(){
-        return liste_lignes.size();
+        return listeLignes.size();
     }
 
     public Clue genClue(Ligne l, Ligne code){
         int perfect=0;
-        for(int i=0;i<ligne_size;i++){
+        for(int i = 0; i< ligneSize; i++){
             if(l.getPion(i)==code.getPion(i))perfect+=1;
         }
         int good=-perfect;
-        for(int i=0;i<ligne_size;i++){
+        for(int i = 0; i< ligneSize; i++){
             if(code.containsColor(l.getPion(i).getCouleur()))good+=1;
         }
         return new Clue(perfect,good);
     }
     public void inputLigne(Ligne l){
-        if(liste_lignes.size()<try_size) {
-            liste_lignes.add(l);
-            liste_clues.add(genClue(l, secret_code));
+        if(listeLignes.size()< tryNumber) {
+            listeLignes.add(l);
+            listeClues.add(genClue(l, secretCode));
         }
     }
+
     @Override
     public String toString() {
-        return "Plateau:\n" +
-                liste_lignes;
+        return "Plateau{" +
+                "liste_lignes=" + listeLignes + "\n"+
+                ", liste_clues=" + listeClues + "\n"+
+                ", secret_code=" + secretCode + "\n"+
+                ", ligne_size=" + ligneSize + "\n"+
+                ", try_size=" + tryNumber + "\n"+
+                ", color_number=" + colorNumber + "\n"+
+                '}';
     }
 }

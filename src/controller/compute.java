@@ -3,6 +3,7 @@ package controller;
 import jeu.*;
 
 import java.awt.*;
+import java.io.*;
 
 public class compute {
     public static Ligne getRandomCode(int ligne_size, int dif, boolean duplicate){
@@ -34,5 +35,34 @@ public class compute {
             if(code.containsColor(l.getPion(i).getCouleur()))good+=1;
         }
         return new Clue(perfect,good);
+    }
+
+    public static void writeGameToFile(Game g){
+        try (FileOutputStream fos = new FileOutputStream("mastermind.save");
+             ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+            // write object to file
+            oos.writeObject(g);
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+    public static boolean saveFound(){
+        try (FileInputStream fis = new FileInputStream("mastermind.save")){
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+    }
+    public static Game readGameFromFile(){
+        try (FileInputStream fis = new FileInputStream("mastermind.save");
+             ObjectInputStream ois = new ObjectInputStream(fis)) {
+            // write object to file
+            return (Game) ois.readObject();
+
+        } catch (IOException | ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+        return null;
     }
 }

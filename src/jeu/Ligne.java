@@ -1,10 +1,11 @@
 package jeu;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Ligne {
+public class Ligne implements Serializable {
     ArrayList<Pion> liste_pions = new ArrayList<>();
 
     public Ligne(Pion... pions) {

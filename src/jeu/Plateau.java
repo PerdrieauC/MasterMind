@@ -1,9 +1,10 @@
 package jeu;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import controller.*;
 
-public class Plateau {
+public class Plateau implements Serializable {
     private ArrayList<Ligne> listeLignes = new ArrayList<>();
     private ArrayList<Clue> listeClues = new ArrayList<>();
     private Ligne secretCode;

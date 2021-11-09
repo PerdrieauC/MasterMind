@@ -1,6 +1,8 @@
 package jeu;
 
-public class Clue {
+import java.io.Serializable;
+
+public class Clue implements Serializable {
     private int perfect;
     private int good;
 

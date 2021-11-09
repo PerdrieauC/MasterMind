@@ -3,8 +3,9 @@ package jeu;
 import controller.Constantes;
 
 import java.awt.*;
+import java.io.Serializable;
 
-public class Pion {
+public class Pion implements Serializable {
     private final Color couleur;
 
     public Pion(Color couleur) {

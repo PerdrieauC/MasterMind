@@ -4,7 +4,9 @@ import jeu.Clue;
 import jeu.Ligne;
 import jeu.Plateau;
 
-public class Game {
+import java.io.Serializable;
+
+public class Game implements Serializable {
     private Plateau plateau;
     private int colorNumber;
     private boolean duplicate; //allow for 2 or more times the same color
@@ -24,6 +26,7 @@ public class Game {
 
     public void inputLigne(Ligne l){
         Clue tmpClue=compute.genClue(l,plateau.getSecretCode(),plateau.getLigneSize());
+
         if(!win)this.plateau.inputLigneAndClue(l,tmpClue);
         if(tmpClue.getPerfect()== plateau.getLigneSize())win=true;
         else if(plateau.getInputSize()==plateau.getTryNumber())lose=true;

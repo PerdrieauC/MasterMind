@@ -1,5 +1,7 @@
 package ui;
 
+import jeu.Plateau;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -7,52 +9,19 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
 
 public class Ui extends JPanel {
-    public Ui() {
-        super();
-    }
     int defaultx=150;
     int defaulty=400;
     int x=defaultx;
     int y=defaulty;
     boolean drag = false;
-    public void drawClue(Graphics2D g2d, int x, int y, boolean perfect) {
-        int radius = 10;
-        Color m;
-        Color s;
-        Color b;
-        if (perfect) {
-            m = Color.black;
-            s = Color.gray;
-        } else {
-            m = Color.white;
-            s = Color.lightGray;
-        }
-        g2d.setColor(s);
-        g2d.fillOval(x - 1, y - 1, radius + 2, radius + 2);
-        g2d.setColor(m);
-        g2d.fillOval(x, y, radius, radius);
+    Plateau plateau=null;
 
+    public Ui() {
+        super();
     }
 
-    public void drawCircle(Graphics2D g2d, int x, int y, Color c) {
-        int radius = 30;
-        int shadowSize = 1; //2%
-        x = x-(radius/2); //draw centered
-        y = y-(radius/2);
-
-        Point2D center = new Point2D.Float(x - shadowSize + (radius/2), y + shadowSize + (radius/2));
-        Color b = new Color(0xFF000000, true); //using colors with transparency!!!
-        Color w = new Color(0x00FFFFFF, true);
-        RadialGradientPaint paint = new RadialGradientPaint(center, radius, new float[]{0.4f, 0.5f}, new Color[]{b, w}, MultipleGradientPaint.CycleMethod.NO_CYCLE);
-        g2d.setPaint(paint);
-        g2d.fillOval(x - shadowSize, y + shadowSize, radius, radius);
-
-        center = new Point2D.Double(x + radius * 0.65, y + radius * 0.3);
-        float[] dist = {0.00f, 0.4f, 0.9f};
-        Color[] colors = {Color.white, c, c.darker()};
-        paint = new RadialGradientPaint(center, radius, dist, colors, MultipleGradientPaint.CycleMethod.REFLECT);
-        g2d.setPaint(paint);
-        g2d.fillOval(x, y, radius, radius);
+    public void setPlateau(Plateau plateau) {
+        this.plateau = plateau;
     }
 
     @Override
@@ -65,16 +34,12 @@ public class Ui extends JPanel {
         g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
         g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
         g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
-        //drawClue(g2d, 100, 150, true);
-        //drawClue(g2d, 120, 150, false);
-        drawCircle(g2d, 150, 150, Color.red);
-        drawCircle(g2d, 200, 150, Color.green);
-        drawCircle(g2d, 250, 150, Color.black);
-        drawCircle(g2d, 300, 150, Color.orange);
-        //drawCircle(g2d, 150, 200, Color.black);
-        //drawCircle(g2d, 200, 200, Color.blue);
-        //drawCircle(g2d, 250, 200, Color.yellow);
-        drawCircle(g2d, x, y, Color.cyan);
+
+        Draw.Plateau(g2d,plateau, getWidth(), getHeight());
+
+        //input circles
+        //Draw.Circle(g2d, x, y,30,Color.cyan);
+
         MyMouseListener listener = new MyMouseListener();
         addMouseListener(listener);
         addMouseMotionListener(listener);

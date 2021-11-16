@@ -1,0 +1,203 @@
+Index: src/Main.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import jeu.*;\nimport controller.*;\n\npublic class Main {\n\n    public static void main(String[] args){\n        Game mastermind = new Game(\"easy\");\n        mastermind.inputLigne(compute.getRandomCode(4,6,false));\n        mastermind.inputLigne(compute.getRandomCode(4,6,false));\n        mastermind.inputLigne(compute.getRandomCode(4,6,false));\n        System.out.println(mastermind);\n    }\n\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Main.java b/src/Main.java
+--- a/src/Main.java	(revision bd97e9274fc5a225c9a58bda53a91450ab2732bb)
++++ b/src/Main.java	(date 1636445036551)
+@@ -1,10 +1,15 @@
+ import jeu.*;
+ import controller.*;
++import ui.Window;
++
++import java.io.IOException;
+ 
+ public class Main {
+ 
+-    public static void main(String[] args){
++    public static void main(String[] args) throws IOException {
+         Game mastermind = new Game("easy");
++        Window window = new Window();
++        window.setVisible(true);
+         mastermind.inputLigne(compute.getRandomCode(4,6,false));
+         mastermind.inputLigne(compute.getRandomCode(4,6,false));
+         mastermind.inputLigne(compute.getRandomCode(4,6,false));
+Index: .idea/.gitignore
+===================================================================
+diff --git a/.idea/.gitignore b/.idea/.gitignore
+deleted file mode 100644
+--- a/.idea/.gitignore	(revision bd97e9274fc5a225c9a58bda53a91450ab2732bb)
++++ /dev/null	(revision bd97e9274fc5a225c9a58bda53a91450ab2732bb)
+@@ -1,8 +0,0 @@
+-# Default ignored files
+-/shelf/
+-/workspace.xml
+-# Editor-based HTTP Client requests
+-/httpRequests/
+-# Datasource local storage ignored files
+-/dataSources/
+-/dataSources.local.xml
+Index: src/ui/Window.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/ui/Window.java b/src/ui/Window.java
+new file mode 100644
+--- /dev/null	(date 1636476926191)
++++ b/src/ui/Window.java	(date 1636476926191)
+@@ -0,0 +1,37 @@
++package ui;
++
++import javax.imageio.ImageIO;
++import javax.swing.*;
++import java.awt.*;
++import java.io.File;
++import java.io.IOException;
++
++public class Window extends JFrame {
++
++    private Menu menu;
++
++    public Window() throws HeadlessException, IOException {
++        super();
++        this.menu = new Menu();
++        this.propriete();
++        menu.afficherMenu(this);
++    }
++
++    private void propriete() {
++        setTitle("Master Mind");
++        setSize(500, 500);
++        setLocationRelativeTo(null);
++        setResizable(true);
++        setContentPane(this.Contenu());
++    }
++
++    private JPanel Contenu() {
++        JPanel panel = new JPanel();
++        panel.setLayout(new GridBagLayout());
++        //panel.setBackground(new Color(160, 106, 68));
++        panel.setBackground(new Color(212, 230, 241));
++        
++
++        return panel;
++    }
++}
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"VcsDirectoryMappings\">\n    <mapping directory=\"$PROJECT_DIR$\" vcs=\"Git\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+--- a/.idea/vcs.xml	(revision bd97e9274fc5a225c9a58bda53a91450ab2732bb)
++++ b/.idea/vcs.xml	(date 1636016483182)
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="VcsDirectoryMappings">
+-    <mapping directory="$PROJECT_DIR$" vcs="Git" />
++    <mapping directory="" vcs="Git" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_16\" default=\"true\" project-jdk-name=\"16\" project-jdk-type=\"JavaSDK\">\n    <output url=\"file://$PROJECT_DIR$/out\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision bd97e9274fc5a225c9a58bda53a91450ab2732bb)
++++ b/.idea/misc.xml	(date 1636016483187)
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_16" default="true" project-jdk-name="16" project-jdk-type="JavaSDK">
++  <component name="ProjectRootManager" version="2" project-jdk-name="17" project-jdk-type="JavaSDK">
+     <output url="file://$PROJECT_DIR$/out" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: MasterMind.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<module type=\"JAVA_MODULE\" version=\"4\">\n  <component name=\"NewModuleRootManager\" inherit-compiler-output=\"true\">\n    <exclude-output />\n    <content url=\"file://$MODULE_DIR$\">\n      <sourceFolder url=\"file://$MODULE_DIR$/.idea\" isTestSource=\"false\" />\n      <sourceFolder url=\"file://$MODULE_DIR$/src\" isTestSource=\"false\" />\n    </content>\n    <orderEntry type=\"jdk\" jdkName=\"16\" jdkType=\"JavaSDK\" />\n    <orderEntry type=\"sourceFolder\" forTests=\"false\" />\n  </component>\n</module>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/MasterMind.iml b/MasterMind.iml
+--- a/MasterMind.iml	(revision bd97e9274fc5a225c9a58bda53a91450ab2732bb)
++++ b/MasterMind.iml	(date 1636016483193)
+@@ -3,10 +3,9 @@
+   <component name="NewModuleRootManager" inherit-compiler-output="true">
+     <exclude-output />
+     <content url="file://$MODULE_DIR$">
+-      <sourceFolder url="file://$MODULE_DIR$/.idea" isTestSource="false" />
+       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+     </content>
+-    <orderEntry type="jdk" jdkName="16" jdkType="JavaSDK" />
++    <orderEntry type="inheritedJdk" />
+     <orderEntry type="sourceFolder" forTests="false" />
+   </component>
+ </module>
+\ No newline at end of file
+Index: src/ui/Menu.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/ui/Menu.java b/src/ui/Menu.java
+new file mode 100644
+--- /dev/null	(date 1636478554564)
++++ b/src/ui/Menu.java	(date 1636478554564)
+@@ -0,0 +1,43 @@
++package ui;
++
++import javax.swing.*;
++import java.awt.*;
++
++public class Menu {
++
++    private JPanel contenu;
++
++    public Menu() {
++        this.contenu = new JPanel();
++        this.contenu.setLayout(new BoxLayout(this.contenu, BoxLayout.Y_AXIS));
++        this.insertButtons();
++    }
++
++    public void insertButtons() {
++        //JPanel pJouer = new JPanel();
++        Button bJouer = new Button("Jouer");
++        bJouer.setSize(100, 50);
++        //pJouer.add(bJouer);
++        //pJouer.setSize(100, 50);
++        //pJouer.setBackground(Color.blue);
++
++
++        JButton regles = new JButton("Règles");
++        JButton quitter = new JButton("Quitter");
++
++        this.contenu.add(bJouer);
++        this.contenu.add(regles);
++        this.contenu.add(quitter);
++    }
++
++    public void afficherMenu(JFrame window) {
++        window.setContentPane(this.contenu);
++        window.repaint();
++        window.revalidate();
++    }
++
++    public JPanel getContenu() {
++        this.contenu.setVisible(true);
++        return contenu;
++    }
++}

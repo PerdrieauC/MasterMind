@@ -1,5 +1,6 @@
 package jeu;
 
+import java.awt.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import controller.*;
@@ -40,6 +41,10 @@ public class Plateau implements Serializable {
 
     public int size(){
         return listeLignes.size();
+    }
+
+    public boolean ligneIndexExists(int index) {
+        return index >= 0 && index < listeLignes.size();
     }
 
     public void inputLigneAndClue(Ligne l, Clue c){

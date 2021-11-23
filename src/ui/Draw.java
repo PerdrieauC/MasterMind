@@ -1,14 +1,20 @@
 package ui;
 
+import controller.Constantes;
+import controller.Events;
 import jeu.Ligne;
+import jeu.Pion;
 import jeu.Plateau;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 
 public class Draw {
+    public static final double MAX_CIRCLE_SIZE=0.7;
+
     public static void Circle(Graphics2D g2d, int x, int y, int radius, Color c) {
-        int shadowSize = 1; //2%
+        int shadowSize = 1;
         x = x-(radius/2); //draw centered
         y = y-(radius/2);
 
@@ -28,15 +34,15 @@ public class Draw {
     }
 
     public static void Hole(Graphics2D g2d, int x, int y, int radius){
-        int Contour_x = x-(radius/2); //draw centered
-        int Contour_y = y-(radius/2);
+        double Contour_x = x-(radius/2); //draw centered
+        double Contour_y = y-(radius/2);
 
-        Point2D center = new Point2D.Float(Contour_x + (radius/2), Contour_y + (radius/2));
+        Point2D center = new Point2D.Double(Contour_x + (radius/2), Contour_y + (radius/2));
         Color b = new Color(0x9b653f); //using colors with transparency!!!
         Color w = b.brighter();
         RadialGradientPaint paint = new RadialGradientPaint(center, radius, new float[]{0.45f, 0.5f}, new Color[]{b, w}, MultipleGradientPaint.CycleMethod.NO_CYCLE);
         g2d.setPaint(paint);
-        g2d.fillOval(Contour_x, Contour_y, radius, radius);
+        g2d.fillOval((int) Contour_x, (int)Contour_y, radius, radius);
 
         radius= (int) (radius*0.8);
         int trou_x = x-(radius/2); //draw centered
@@ -75,14 +81,17 @@ public class Draw {
 
         double trueWidth=width-marginLeft-marginRight;//500
         double circleRadius=trueWidth*circleSize;//75
-        if(circleRadius>lineHeight*0.8)circleRadius=lineHeight*0.8;
+        if(circleRadius>lineHeight*MAX_CIRCLE_SIZE)circleRadius=lineHeight*MAX_CIRCLE_SIZE;
 
         double gap=(trueWidth*(1-(size-1)*circleSize))/(size-1);
 
+        ArrayList<Integer[]> res=new ArrayList<>();
         for(int i=0;i<size;i++){
             int posX = (int) (marginLeft+circleRadius*i+gap*i);
-            Draw.Circle(g2d, posX,posY,(int)circleRadius,ligne.getPion(i).getCouleur());
+            res.add(new Integer[]{posX, posY});
+            if(ligne.getPion(i)!=null)Draw.Circle(g2d, posX,posY,(int)circleRadius,ligne.getPion(i).getCouleur());
         }
+        Events.setInputPositions(res);
     }
 
     public static void LigneVide(Graphics2D g2d, int size, int width, int posY, int lineHeight){
@@ -95,7 +104,7 @@ public class Draw {
         double trueWidth=width-marginLeft-marginRight;//500
         double circleRadius=trueWidth*circleSize;
 
-        if(circleRadius>lineHeight*0.8)circleRadius=lineHeight*0.8;
+        if(circleRadius>lineHeight*MAX_CIRCLE_SIZE)circleRadius=lineHeight*MAX_CIRCLE_SIZE;
         double gap=(trueWidth*(1-(size-1)*circleSize))/(size-1);
 
         double holeRadius = circleRadius*ratioToCircle;
@@ -105,16 +114,49 @@ public class Draw {
         }
     }
 
-    public static void Plateau(Graphics2D g2d, Plateau plateau, int width, int height){
+    public static void Selector(Graphics2D g2d, int moovedCircle, int moovedX, int moovedY, int colorNumber, int size, int width, int y, int lineHeight){
+        double marginLeft=width*0.4; //10%
+        double marginRight=width*0.25; //10%
+        double circleSize=3/(4*(double)size);//20% of screen width w/o margin
+
+        double trueWidth=width-marginLeft-marginRight;//500
+        double circleRadius=trueWidth*circleSize;//75
+        if(circleRadius>lineHeight*MAX_CIRCLE_SIZE)circleRadius=lineHeight*MAX_CIRCLE_SIZE;
+
+        double gap=(trueWidth*(1-(size-1)*circleSize))/(size-1);
+
+        ArrayList<Integer[]> res = new ArrayList<>();
+        Events.setStoreCircleRadius ((int) circleRadius);
+
+
+        for(int j=0;j<=colorNumber/size;j++) {
+            for (int i = 0; i < size; i++) {
+                int posX = (int) (marginLeft + circleRadius * i + gap * i);
+                int posY = y+lineHeight*j;
+                res.add(new Integer[]{posX, posY});
+                if(i+j*size!=moovedCircle && i+j*size<colorNumber)Draw.Circle(g2d, posX, posY, (int) circleRadius, Constantes.colors[i+j*size]);
+            }
+        }
+        Events.setSelectorPositions(res);
+        if(moovedCircle>=0)Draw.Circle(g2d, moovedX, moovedY, (int) circleRadius, Constantes.colors[moovedCircle]);
+    }
+
+    public static void Plateau(Graphics2D g2d, Plateau plateau, int width, int height, int moovedCircle, int moovedX, int moovedY){
         int marginTop = (int) (height*0.1); //10% top
         int marginBottom = (int) (height*0.2); //20% bottom
         int lineNTotal = plateau.getTryNumber();
         int lineHeight = (height-marginBottom-marginTop)/(lineNTotal-1);
+
+
         for(int i = 0; i<lineNTotal; i++) {
             Draw.LigneVide(g2d, plateau.getLigneSize(), width, height-marginBottom-i*lineHeight, lineHeight);
             if(plateau.ligneIndexExists(i)) Draw.Ligne(g2d, plateau.getLigne(i), plateau.getLigneSize(), width, height-marginBottom-i*lineHeight, lineHeight);
 
         }
+
+        Draw.Ligne(g2d, Events.getCurrentInput(), plateau.getLigneSize(), width, height-marginBottom-plateau.size()*lineHeight, lineHeight); //current line we r inputing
+
+        Draw.Selector(g2d, moovedCircle,moovedX,moovedY,plateau.getColor_number(),plateau.getLigneSize(), width, height-marginBottom/2, lineHeight);
     }
 
 

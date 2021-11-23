@@ -11,11 +11,13 @@ public class Plateau implements Serializable {
     private Ligne secretCode;
     private int ligneSize;
     private int tryNumber;
+    private int color_number;
 
     public Plateau(int ligne_size, int try_size, int color_number, Ligne secretCode) {
         this.ligneSize = ligne_size;
         this.tryNumber = try_size;
         this.secretCode = secretCode;
+        this.color_number = color_number;
     }
 
     public int getInputSize(){
@@ -46,6 +48,8 @@ public class Plateau implements Serializable {
     public boolean ligneIndexExists(int index) {
         return index >= 0 && index < listeLignes.size();
     }
+
+    public int getColor_number() {return color_number;}
 
     public void inputLigneAndClue(Ligne l, Clue c){
         if(getInputSize()< tryNumber) {

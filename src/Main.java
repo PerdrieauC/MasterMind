@@ -17,20 +17,11 @@ public class Main {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setContentPane(panel);
 
-        Game mastermind = new Game("easy");
-        mastermind.inputLigne(compute.getRandomCode(4,6,false));
-        mastermind.inputLigne(compute.getRandomCode(4,6,false));
-        mastermind.inputLigne(compute.getRandomCode(4,6,false));
-        mastermind.inputLigne(compute.getRandomCode(4,6,false));
-        mastermind.inputLigne(compute.getRandomCode(4,6,false));
-        mastermind.inputLigne(compute.getRandomCode(4,6,false));
-        mastermind.inputLigne(compute.getRandomCode(4,6,false));
-        mastermind.inputLigne(compute.getRandomCode(4,6,false));
-        mastermind.inputLigne(compute.getRandomCode(4,6,false));
-        mastermind.inputLigne(compute.getRandomCode(4,6,false));
-        mastermind.inputLigne(compute.getRandomCode(4,6,false));
-        mastermind.inputLigne(compute.getRandomCode(4,6,false));
-        mastermind.inputLigne(compute.getRandomCode(4,6,false));
+        Game mastermind = new Game("normal");
+        for(int i=0;i<10;i++){
+            mastermind.inputLigne(compute.getRandomCode(4,7,false));
+        }
+
         System.out.println(mastermind);
 
         panel.setPlateau(mastermind.getPlateau());

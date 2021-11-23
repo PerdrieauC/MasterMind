@@ -1,5 +1,9 @@
 package ui;
 
+import controller.Constantes;
+import controller.Events;
+import jeu.Ligne;
+import jeu.Pion;
 import jeu.Plateau;
 
 import javax.swing.*;
@@ -9,13 +13,10 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
 
 public class Ui extends JPanel {
-    int defaultx=150;
-    int defaulty=400;
-    int x=defaultx;
-    int y=defaulty;
-    boolean drag = false;
+
     Plateau plateau=null;
 
+    Events listener = new Events();
     public Ui() {
         super();
     }
@@ -35,43 +36,16 @@ public class Ui extends JPanel {
         g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
         g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
 
-        Draw.Plateau(g2d,plateau, getWidth(), getHeight());
+        Draw.Plateau(g2d,plateau, getWidth(), getHeight(), listener.getMoovedColor(), listener.getX(), listener.getY());
 
         //input circles
         //Draw.Circle(g2d, x, y,30,Color.cyan);
 
-        MyMouseListener listener = new MyMouseListener();
+        listener.windowWidth=getWidth();
+        listener.windowHeight=getHeight();
         addMouseListener(listener);
         addMouseMotionListener(listener);
-
-
+        repaint();
     }
 
-    class MyMouseListener extends MouseAdapter {
-
-        public void mousePressed(MouseEvent e) {
-            if(defaultx-15<e.getX() && e.getX()<defaultx+15 && defaulty-15<e.getY() && e.getY()<defaulty+15){
-                drag=true;
-            }
-        }
-
-        public void mouseDragged(MouseEvent e) {
-            if(drag) {
-                x = e.getX();
-                y = e.getY();
-                if(x>getWidth())x=getWidth();
-                if(y>getHeight())y=getHeight();
-                if(x<0)x=0;
-                if(y<0)y=0;
-                repaint();
-            }
-        }
-
-        public void mouseReleased(MouseEvent e) {
-            x=defaultx;
-            y=defaulty;
-            drag=false;
-            repaint();
-        }
-    }
 }

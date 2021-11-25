@@ -10,8 +10,8 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class Events extends MouseAdapter {
-    private int x=-100;
-    private int y=-100;
+    private int x=-100;//x mouse position
+    private int y=-100;//y mouse position
 
     private static ArrayList<Integer[]> selectorPositions = new ArrayList<>();
     private static ArrayList<Integer[]> inputPositions = new ArrayList<>();
@@ -64,7 +64,8 @@ public class Events extends MouseAdapter {
         if(e.getButton()==2) currentInput.clear();
 
         moovedColor=getCircleClickedSelector(e.getX(),e.getY());
-        mouseDragged(e);
+        x = e.getX();
+        y = e.getY();
         int index=getCircleClickedInput(e.getX(),e.getY());
         if(index>=0 && e.getButton()==3)currentInput.removePion(index);
 

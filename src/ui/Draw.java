@@ -14,22 +14,24 @@ import java.util.ArrayList;
 public class Draw {
     public static final double MAX_CIRCLE_SIZE=0.7;
 
-    public static void Circle(Graphics2D g2d, int x, int y, int radius, Color c) {
-        int shadowSize = 1;
+    public static void Circle(Graphics2D g2d, int x, int y, int radius, Color c,boolean shadowed) {
+        int shadowSize = radius/15;
         x = x-(radius/2); //draw centered
         y = y-(radius/2);
 
-        Point2D center = new Point2D.Float(x - shadowSize + (radius/2), y + shadowSize + (radius/2));
-        Color b = new Color(0xFF000000, true); //using colors with transparency!!!
-        Color w = new Color(0x00FFFFFF, true);
-        RadialGradientPaint paint = new RadialGradientPaint(center, radius, new float[]{0.4f, 0.5f}, new Color[]{b, w}, MultipleGradientPaint.CycleMethod.NO_CYCLE);
-        g2d.setPaint(paint);
-        g2d.fillOval(x - shadowSize, y + shadowSize, radius, radius);
+        if(shadowed) {
+            Point2D center = new Point2D.Float(x - shadowSize + (radius / 2), y + shadowSize + (radius / 2));
+            Color b = new Color(0xFF000000, true); //using colors with transparency!!!
+            Color w = new Color(0x00FFFFFF, true);
+            RadialGradientPaint paint = new RadialGradientPaint(center, radius, new float[]{0.4f, 0.5f}, new Color[]{b, w}, MultipleGradientPaint.CycleMethod.NO_CYCLE);
+            g2d.setPaint(paint);
+            g2d.fillOval(x - shadowSize, y + shadowSize, radius, radius);
+        }
 
-        center = new Point2D.Double(x + radius * 0.65, y + radius * 0.3);
+        Point2D center = new Point2D.Double(x + radius * 0.65, y + radius * 0.3);
         float[] dist = {0.00f, 0.4f, 0.9f};
         Color[] colors = {Color.white, c, c.darker()};
-        paint = new RadialGradientPaint(center, radius, dist, colors, MultipleGradientPaint.CycleMethod.REFLECT);
+        RadialGradientPaint paint = new RadialGradientPaint(center, radius, dist, colors, MultipleGradientPaint.CycleMethod.REFLECT);
         g2d.setPaint(paint);
         g2d.fillOval(x, y, radius, radius);
     }
@@ -110,7 +112,7 @@ public class Draw {
         for(int i=0;i<size;i++){
             int posX = (int) (marginLeft+circleRadius*i+gap*i);
             res.add(new Integer[]{posX, posY});
-            if(ligne.getPion(i)!=null)Draw.Circle(g2d, posX,posY,(int)circleRadius,ligne.getPion(i).getCouleur());
+            if(ligne.getPion(i)!=null)Draw.Circle(g2d, posX,posY,(int)circleRadius,ligne.getPion(i).getCouleur(), false);
         }
         Events.setInputPositions(res);
     }
@@ -156,13 +158,13 @@ public class Draw {
                 int posY = y+lineHeight*j;
 
                 if(i+j*size!=moovedCircle && i+j*size<colorNumber){
-                    Draw.Circle(g2d, posX, posY, (int) circleRadius, Constantes.colors[i+j*size]);
+                    Draw.Circle(g2d, posX, posY, (int) circleRadius, Constantes.colors[i+j*size],true);
                     res.add(new Integer[]{posX, posY});
                 }
             }
         }
         Events.setSelectorPositions(res);
-        if(moovedCircle>=0)Draw.Circle(g2d, moovedX, moovedY, (int) circleRadius, Constantes.colors[moovedCircle]);
+        if(moovedCircle>=0)Draw.Circle(g2d, moovedX, moovedY, (int) circleRadius, Constantes.colors[moovedCircle],true);
     }
 
     public static void Plateau(Graphics2D g2d, Plateau plateau, int width, int height, int moovedCircle, int moovedX, int moovedY){

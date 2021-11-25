@@ -6,6 +6,7 @@ import jeu.Ligne;
 import jeu.Pion;
 import jeu.Plateau;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentEvent;
@@ -13,18 +14,27 @@ import java.awt.event.ComponentListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
 
 public class Ui extends JPanel {
 
     Plateau plateau=null;
 
     Events listener = new Events();
-
+    private BufferedImage background;
     public Ui() {
         super();
         this.addMouseListener(listener);
         this.addMouseMotionListener(listener);
         this.addComponentListener(new FrameSizeListener());
+        URL resource = getClass().getResource("bg.png");
+        try {
+            background = ImageIO.read(resource);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void updatePlateau(Plateau plateau) {
@@ -43,6 +53,7 @@ public class Ui extends JPanel {
         g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
         g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
 
+        g2d.drawImage(background, 0, 0, getWidth(), getHeight(),this);
         if(plateau!=null)Draw.Plateau(g2d,plateau, getWidth(), getHeight(), listener.getMoovedColor(), listener.getX(), listener.getY());
 
     }

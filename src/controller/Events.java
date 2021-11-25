@@ -15,7 +15,7 @@ public class Events extends MouseAdapter {
 
     private static ArrayList<Integer[]> selectorPositions = new ArrayList<>();
     private static ArrayList<Integer[]> inputPositions = new ArrayList<>();
-    private static int storeCircleRadius=10;
+    private static double storeCircleRadius=10;
     private static Ligne currentInput = new Ligne();
 
 
@@ -30,8 +30,8 @@ public class Events extends MouseAdapter {
     public static void setInputPositions(ArrayList<Integer[]> inputPositions) {
         Events.inputPositions = inputPositions;
     }
-    public static void setStoreCircleRadius(int storeCircleRadius) {
-        Events.storeCircleRadius = storeCircleRadius;
+    public static void setStoreCircleRadius(double storeCircleRadius) {
+        Events.storeCircleRadius = storeCircleRadius/2;
     }
     public static void setCurrentInput(Ligne currentInput) {Events.currentInput = currentInput;
     }

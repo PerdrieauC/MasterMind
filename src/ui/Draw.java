@@ -147,15 +147,18 @@ public class Draw {
         double gap=(trueWidth*(1-(size-1)*circleSize))/(size-1);
 
         ArrayList<Integer[]> res = new ArrayList<>();
-        Events.setStoreCircleRadius ((int) circleRadius);
+        Events.setStoreCircleRadius (circleRadius);
 
 
         for(int j=0;j<=colorNumber/size;j++) {
             for (int i = 0; i < size; i++) {
                 int posX = (int) (marginLeft + circleRadius * i + gap * i);
                 int posY = y+lineHeight*j;
-                res.add(new Integer[]{posX, posY});
-                if(i+j*size!=moovedCircle && i+j*size<colorNumber)Draw.Circle(g2d, posX, posY, (int) circleRadius, Constantes.colors[i+j*size]);
+
+                if(i+j*size!=moovedCircle && i+j*size<colorNumber){
+                    Draw.Circle(g2d, posX, posY, (int) circleRadius, Constantes.colors[i+j*size]);
+                    res.add(new Integer[]{posX, posY});
+                }
             }
         }
         Events.setSelectorPositions(res);

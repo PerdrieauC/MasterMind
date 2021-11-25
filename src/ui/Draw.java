@@ -2,6 +2,7 @@ package ui;
 
 import controller.Constantes;
 import controller.Events;
+import jeu.Clue;
 import jeu.Ligne;
 import jeu.Pion;
 import jeu.Plateau;
@@ -56,8 +57,9 @@ public class Draw {
         g2d.fillOval(trou_x, trou_y, radius, radius);
     }
 
-    public static void Clue(Graphics2D g2d, int x, int y, boolean perfect) {
-        int radius = 10;
+    public static void clue_pin(Graphics2D g2d, int x, int y, int radius, boolean perfect) {
+        x = x-(radius/2); //draw centered
+        y = y-(radius/2);
         Color m;
         Color s;
         Color b;
@@ -74,13 +76,32 @@ public class Draw {
         g2d.fillOval(x, y, radius, radius);
 
     }
-    public static void Ligne(Graphics2D g2d, Ligne ligne, int size, int width, int posY, int lineHeight){
-        double marginLeft=width*0.4; //10%
-        double marginRight=width*0.25; //10%
-        double circleSize=3/(4*(double)size);//20% of screen width w/o margin
 
-        double trueWidth=width-marginLeft-marginRight;//500
-        double circleRadius=trueWidth*circleSize;//75
+    public static void clues(Graphics2D g2d, Clue clue, int size, int width, int posY, int lineHeight){
+        double marginLeft=width*0.15; //10%
+        double marginRight=width*0.75; //10%
+        double circleSize=0.2;
+
+        double trueWidth=width-marginLeft-marginRight;
+        double circleRadius=lineHeight*circleSize;
+
+        ArrayList<Boolean> info = clue.getList();
+
+        for(int row=0;row<2;row++) {
+            for (int i = 0; i < (int) Math.ceil((double) size / 2); i++) {
+                int posX = (int) (marginLeft+circleRadius*i*1.4);
+                if(row*2+i< info.size()) Draw.clue_pin(g2d,posX, (int) (posY-circleRadius*0.7+row*circleRadius*1.4), (int) circleRadius, info.get(row*2+i));
+            }
+        }
+    }
+
+    public static void Ligne(Graphics2D g2d, Ligne ligne, int size, int width, int posY, int lineHeight){
+        double marginLeft=width*0.3; //10%
+        double marginRight=width*0.25; //10%
+        double circleSize=3/(4*(double)size);
+
+        double trueWidth=width-marginLeft-marginRight;
+        double circleRadius=trueWidth*circleSize;
         if(circleRadius>lineHeight*MAX_CIRCLE_SIZE)circleRadius=lineHeight*MAX_CIRCLE_SIZE;
 
         double gap=(trueWidth*(1-(size-1)*circleSize))/(size-1);
@@ -95,7 +116,7 @@ public class Draw {
     }
 
     public static void LigneVide(Graphics2D g2d, int size, int width, int posY, int lineHeight){
-        double marginLeft=width*0.4; //10%
+        double marginLeft=width*0.3; //10%
         double marginRight=width*0.25; //10%
         double circleSize=3/(4*(double)size);//20% of screen width w/o margin
         double ratioToCircle=1.2;
@@ -115,7 +136,7 @@ public class Draw {
     }
 
     public static void Selector(Graphics2D g2d, int moovedCircle, int moovedX, int moovedY, int colorNumber, int size, int width, int y, int lineHeight){
-        double marginLeft=width*0.4; //10%
+        double marginLeft=width*0.3; //10%
         double marginRight=width*0.25; //10%
         double circleSize=3/(4*(double)size);//20% of screen width w/o margin
 
@@ -150,7 +171,11 @@ public class Draw {
 
         for(int i = 0; i<lineNTotal; i++) {
             Draw.LigneVide(g2d, plateau.getLigneSize(), width, height-marginBottom-i*lineHeight, lineHeight);
-            if(plateau.ligneIndexExists(i)) Draw.Ligne(g2d, plateau.getLigne(i), plateau.getLigneSize(), width, height-marginBottom-i*lineHeight, lineHeight);
+            if(plateau.ligneIndexExists(i)){
+                int posY=height-marginBottom-i*lineHeight;
+                Draw.Ligne(g2d, plateau.getLigne(i), plateau.getLigneSize(), width, posY, lineHeight);
+                Draw.clues(g2d, plateau.getClue(i), plateau.getLigneSize(), width, posY, lineHeight);
+            }
 
         }
 

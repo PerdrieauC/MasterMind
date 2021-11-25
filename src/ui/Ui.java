@@ -8,6 +8,8 @@ import jeu.Plateau;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
@@ -20,10 +22,14 @@ public class Ui extends JPanel {
 
     public Ui() {
         super();
+        this.addMouseListener(listener);
+        this.addMouseMotionListener(listener);
+        this.addComponentListener(new FrameSizeListener());
     }
 
-    public void setPlateau(Plateau plateau) {
+    public void updatePlateau(Plateau plateau) {
         this.plateau = plateau;
+        repaint();
     }
 
     @Override
@@ -39,10 +45,28 @@ public class Ui extends JPanel {
 
         if(plateau!=null)Draw.Plateau(g2d,plateau, getWidth(), getHeight(), listener.getMoovedColor(), listener.getX(), listener.getY());
 
-        listener.windowWidth=getWidth();
-        listener.windowHeight=getHeight();
-        addMouseListener(listener);
-        addMouseMotionListener(listener);
+    }
+
+    private class FrameSizeListener implements ComponentListener {
+        public void componentResized(ComponentEvent e) {
+            listener.windowWidth=getWidth();
+            listener.windowHeight=getHeight();
+        }
+
+        @Override
+        public void componentMoved(ComponentEvent e) {
+
+        }
+
+        @Override
+        public void componentShown(ComponentEvent e) {
+
+        }
+
+        @Override
+        public void componentHidden(ComponentEvent e) {
+            System.out.println("hidden");
+        }
     }
 
 }

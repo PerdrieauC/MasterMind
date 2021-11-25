@@ -40,8 +40,7 @@ public class Main {
                     mastermind.inputLigne(Events.getCurrentInput());
                     Events.setCurrentInput(new Ligne());
                 }
-                panel.setPlateau(mastermind.getPlateau());
-                panel.repaint();
+                panel.updatePlateau(mastermind.getPlateau());
                 next_game_tick += SKIP_TICKS;
                 loops++;
             }

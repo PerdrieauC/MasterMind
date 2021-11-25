@@ -25,11 +25,12 @@ public class Game implements Serializable {
     }
 
     public void inputLigne(Ligne l){
-        Clue tmpClue=compute.genClue(l,plateau.getSecretCode(),plateau.getLigneSize());
-
-        if(!win)this.plateau.inputLigneAndClue(l,tmpClue);
-        if(tmpClue.getPerfect()== plateau.getLigneSize())win=true;
-        else if(plateau.getInputSize()==plateau.getTryNumber())lose=true;
+        if(l.getSize()==plateau.getLigneSize() && !win && !lose) {
+            Clue tmpClue = compute.genClue(l, plateau.getSecretCode(), plateau.getLigneSize());
+            if (!win) this.plateau.inputLigneAndClue(l, tmpClue);
+            if (tmpClue.getPerfect() == plateau.getLigneSize()) win = true;
+            else if (plateau.getInputSize() == plateau.getTryNumber()) lose = true;
+        }
     }
 
     public Plateau getPlateau() {
@@ -51,7 +52,9 @@ public class Game implements Serializable {
     public boolean isLose() {
         return lose;
     }
-
+    public boolean isPlaying() {
+        return !win&&!lose;
+    }
     @Override
     public String toString() {
         return "Game{" +

@@ -19,12 +19,12 @@ public class Main {
         frame.setContentPane(panel);
 
         Game mastermind = new Game("normal");
-        for(int i=0;i<8;i++){
-            mastermind.inputLigne(compute.getRandomCode(4,7,false));
-        }
+        //for(int i=0;i<8;i++){
+        //    mastermind.inputLigne(compute.getRandomCode(4,7,false));
+        //}
         System.out.println(mastermind);
 
-        panel.setPlateau(mastermind.getPlateau());
+
 
 
 
@@ -33,9 +33,14 @@ public class Main {
         final int MAX_FRAMESKIP = 5;
         double next_game_tick = System.currentTimeMillis();
         int loops;
-        while (true) {
+        while (mastermind.isPlaying()) {
             loops = 0;
             while (System.currentTimeMillis() > next_game_tick && loops < MAX_FRAMESKIP) {
+                if(Events.getCurrentInput().getSize()==mastermind.getPlateau().getLigneSize()) {
+                    mastermind.inputLigne(Events.getCurrentInput());
+                    Events.setCurrentInput(new Ligne());
+                }
+                panel.setPlateau(mastermind.getPlateau());
                 panel.repaint();
                 next_game_tick += SKIP_TICKS;
                 loops++;

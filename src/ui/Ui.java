@@ -17,6 +17,7 @@ public class Ui extends JPanel {
     Plateau plateau=null;
 
     Events listener = new Events();
+
     public Ui() {
         super();
     }
@@ -42,7 +43,6 @@ public class Ui extends JPanel {
         listener.windowHeight=getHeight();
         addMouseListener(listener);
         addMouseMotionListener(listener);
-        repaint();
     }
 
 }

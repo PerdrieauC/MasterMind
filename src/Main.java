@@ -19,10 +19,10 @@ public class Main {
         frame.setContentPane(panel);
 
         Game mastermind = new Game("normal");
-        //for(int i=0;i<8;i++){
-        //    mastermind.inputLigne(compute.getRandomCode(4,7,false));
-        //}
-        System.out.println(mastermind);
+        for(int i=0;i<8;i++){
+            mastermind.inputLigne(compute.getRandomCode(4,7,false));
+        }
+
 
 
 
@@ -36,7 +36,7 @@ public class Main {
         while (mastermind.isPlaying()) {
             loops = 0;
             while (System.currentTimeMillis() > next_game_tick && loops < MAX_FRAMESKIP) {
-                if(Events.getCurrentInput().getSize()==mastermind.getPlateau().getLigneSize()) {
+                if(Events.getCurrentInput().getSize()==mastermind.getPlateau().getLigneSize() && Events.getCurrentInput().isFull()) {
                     mastermind.inputLigne(Events.getCurrentInput());
                     Events.setCurrentInput(new Ligne());
                 }
@@ -46,6 +46,8 @@ public class Main {
                 loops++;
             }
         }
+        if(mastermind.isWin())System.out.println("gagneggwp");
+        if(mastermind.isLose())System.out.println("perdu le code etait " + mastermind.getPlateau().getSecretCode());
 
     }
 

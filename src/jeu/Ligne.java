@@ -28,7 +28,7 @@ public class Ligne implements Serializable {
     }
 
     public int getSize(){return liste_pions.size();}
-
+    public boolean isFull(){return !liste_pions.contains(null);}
     public boolean containsColor(Color c){
         for (Pion p : liste_pions) {
             if (p.getCouleur() == c) return true;

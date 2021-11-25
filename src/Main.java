@@ -9,6 +9,7 @@ public class Main {
     private static Game mastermind;
 
     public static void main(String[] args){
+        System.setProperty("sun.java2d.opengl", "true");
         JFrame frame = new JFrame();
         Ui panel = new Ui();
 
@@ -22,11 +23,6 @@ public class Main {
         for(int i=0;i<8;i++){
             mastermind.inputLigne(compute.getRandomCode(4,7,false));
         }
-
-
-
-
-
 
         final int FPS = 60;
         final int SKIP_TICKS = 1000 / FPS;

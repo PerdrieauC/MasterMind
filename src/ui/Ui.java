@@ -1,9 +1,6 @@
 package ui;
 
-import controller.Constantes;
 import controller.Events;
-import jeu.Ligne;
-import jeu.Pion;
 import jeu.Plateau;
 
 import javax.imageio.ImageIO;
@@ -11,9 +8,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;

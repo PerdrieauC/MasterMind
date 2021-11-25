@@ -2,8 +2,6 @@ package controller;
 
 import jeu.Ligne;
 import jeu.Pion;
-import ui.Draw;
-import ui.Ui;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;

@@ -6,7 +6,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Main {
-    private static Game mastermind;
 
     public static void main(String[] args){
         System.setProperty("sun.java2d.opengl", "true");
@@ -15,6 +14,7 @@ public class Main {
 
         frame.setSize(500, 1000);
         frame.setMinimumSize(new Dimension(400,800));
+        frame.setName("Mastermind");
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setContentPane(panel);

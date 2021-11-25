@@ -4,7 +4,6 @@ import controller.Constantes;
 import controller.Events;
 import jeu.Clue;
 import jeu.Ligne;
-import jeu.Pion;
 import jeu.Plateau;
 
 import java.awt.*;

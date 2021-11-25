@@ -1,9 +1,8 @@
 package jeu;
 
-import java.awt.*;
 import java.io.Serializable;
 import java.util.ArrayList;
-import controller.*;
+
 
 public class Plateau implements Serializable {
     private ArrayList<Ligne> listeLignes = new ArrayList<>();

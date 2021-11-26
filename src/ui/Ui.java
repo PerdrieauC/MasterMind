@@ -15,9 +15,11 @@ import java.net.URL;
 public class Ui extends JPanel {
 
     Plateau plateau=null;
-
     Events listener = new Events();
     private BufferedImage background;
+    private boolean won=false;
+    private boolean loose=false;
+
     public Ui() {
         super();
         this.addMouseListener(listener);
@@ -36,6 +38,14 @@ public class Ui extends JPanel {
         repaint();
     }
 
+    public void setWon(){
+        won=true;
+        repaint();
+    }
+    public void setLoose(){
+        loose=true;
+        repaint();
+    }
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -49,7 +59,12 @@ public class Ui extends JPanel {
 
         g2d.drawImage(background, 0, 0, getWidth(), getHeight(),this);
         if(plateau!=null)Draw.Plateau(g2d,plateau, getWidth(), getHeight(), listener.getMoovedColor(), listener.getX(), listener.getY());
-
+        if(won) {
+            g2d.setColor(Color.green);
+            g2d.setFont(new Font("Arial", Font.CENTER_BASELINE, 30));
+            String info = "GAGNEEEEEEEE";
+            g2d.drawString(info, (float) (getWidth() * 0.5), (float) (getHeight() * 0.5));
+        }
     }
 
     private class FrameSizeListener implements ComponentListener {

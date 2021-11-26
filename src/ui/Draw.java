@@ -14,7 +14,7 @@ public class Draw {
     public static final double MAX_CIRCLE_SIZE=0.7;
 
     public static void Circle(Graphics2D g2d, int x, int y, int radius, Color c,boolean shadowed) {
-        int shadowSize = radius/15;
+        double shadowSize = radius*0.1;
         x = (int) (x-(radius*0.5)); //draw centered
         y = (int) (y-(radius*0.5));
 
@@ -24,7 +24,7 @@ public class Draw {
             Color w = new Color(0x00FFFFFF, true);
             RadialGradientPaint paint = new RadialGradientPaint(center, radius, new float[]{0.4f, 0.5f}, new Color[]{b, w}, MultipleGradientPaint.CycleMethod.NO_CYCLE);
             g2d.setPaint(paint);
-            g2d.fillOval(x - shadowSize, y + shadowSize, radius, radius);
+            g2d.fillOval((int)(x - shadowSize), (int)(y + shadowSize), radius, radius);
         }
 
         Point2D center = new Point2D.Double(x + radius * 0.65, y + radius * 0.3);
@@ -159,10 +159,9 @@ public class Draw {
             for (int i = 0; i < size; i++) {
                 int posX = (int) (marginLeft + circleRadius * i + gap * i);
                 int posY = y+lineHeight*j;
-
+                if(i+j*size<colorNumber)res.add(new Integer[]{posX, posY});
                 if(i+j*size!=moovedCircle && i+j*size<colorNumber){
                     Draw.Circle(g2d, posX, posY, (int) circleRadius, Constantes.colors[i+j*size],true);
-                    res.add(new Integer[]{posX, posY});
                 }
             }
         }

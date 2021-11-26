@@ -13,6 +13,15 @@ public class Ligne implements Serializable {
         liste_pions.addAll(Arrays.asList(pions));
     }
 
+    public void addPions(Pion p) {
+        for(int i=0;i<getSize();i++) {
+            if(liste_pions.get(i)==null){
+                liste_pions.set(i,p);
+                return;
+            }
+        }
+        this.liste_pions.add(p);
+    }
     public void addPions(int index,Pion p) {
         for(int i=getSize();i<=index;i++)liste_pions.add(null);
         this.liste_pions.remove(index);

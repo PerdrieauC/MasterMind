@@ -32,7 +32,7 @@ public final class Constantes {
 
     public final static HashMap<String, Boolean> remise = new HashMap<>() {{
         put("easy", Boolean.FALSE);
-        put("normal", Boolean.FALSE);
+        put("normal", Boolean.TRUE);
         put("hard", Boolean.TRUE);
     }};
 }

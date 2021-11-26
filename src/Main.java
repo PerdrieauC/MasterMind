@@ -20,9 +20,10 @@ public class Main {
         frame.setContentPane(panel);
 
         Game mastermind = new Game("normal");
-        for(int i=0;i<8;i++){
-            mastermind.inputLigne(compute.getRandomCode(4,7,false));
+        for(int i=0;i<3;i++){
+            mastermind.inputLigne(compute.getRandomCode(4,7,true));
         }
+        System.out.println(mastermind);
 
         final int FPS = 60;
         final int SKIP_TICKS = 1000 / FPS;
@@ -41,7 +42,8 @@ public class Main {
                 loops++;
             }
         }
-        if(mastermind.isWin())System.out.println("gagneggwp");
+
+        if(mastermind.isWin())panel.setWon();
         if(mastermind.isLose())System.out.println("perdu le code etait " + mastermind.getPlateau().getSecretCode());
 
     }

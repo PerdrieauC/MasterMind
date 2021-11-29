@@ -19,7 +19,7 @@ public class Main {
         frame.setSize(400, 800);
         frame.setMinimumSize(new Dimension(300,600));
         frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE); //dont exit when close pressed => ask for save instead
         frame.setContentPane(panel);
 
 
@@ -30,7 +30,7 @@ public class Main {
             mastermind = new Game(val);
         }
 
-        frame.addWindowListener(new WindowAdapter() {
+        frame.addWindowListener(new WindowAdapter() {//dont exit when close pressed => ask for save instead
             @Override
             public void windowClosing(WindowEvent e) {
                 if(mastermind.isPlaying()) {
@@ -42,7 +42,6 @@ public class Main {
         });
 
 
-        
         //framerate cap for performance
         final int FPS = 60;
         final int SKIP_TICKS = 1000 / FPS;

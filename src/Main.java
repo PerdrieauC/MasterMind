@@ -19,9 +19,9 @@ public class Main {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setContentPane(panel);
 
-        Game mastermind = new Game("normal");
-        for(int i=0;i<3;i++){
-            mastermind.inputLigne(compute.getRandomCode(4,7,true));
+        Game mastermind = new Game("easy");
+        for(int i=0;i<12;i++){
+            mastermind.inputLigne(compute.getRandomCode(4,6,false));
         }
         System.out.println(mastermind);
 
@@ -44,7 +44,7 @@ public class Main {
         }
 
         if(mastermind.isWin())panel.setWon();
-        if(mastermind.isLose())System.out.println("perdu le code etait " + mastermind.getPlateau().getSecretCode());
+        if(mastermind.isLose())panel.setLoose();
 
     }
 

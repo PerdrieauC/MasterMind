@@ -59,11 +59,27 @@ public class Ui extends JPanel {
 
         g2d.drawImage(background, 0, 0, getWidth(), getHeight(),this);
         if(plateau!=null)Draw.Plateau(g2d,plateau, getWidth(), getHeight(), listener.getMoovedColor(), listener.getX(), listener.getY());
-        if(won) {
-            g2d.setColor(Color.green);
-            g2d.setFont(new Font("Arial", Font.CENTER_BASELINE, 30));
-            String info = "GAGNEEEEEEEE";
-            g2d.drawString(info, (float) (getWidth() * 0.5), (float) (getHeight() * 0.5));
+
+        if(won || loose){
+            String info = "";
+
+            g2d.setColor(Color.BLACK);
+            g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,0.6f));
+            g2d.fillRect(0 , 0, getWidth(), getHeight());
+
+            Font font=new Font("Arial", Font.BOLD, 40);
+            g2d.setFont(font);
+            FontMetrics metrics = g.getFontMetrics(font);
+            g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER));
+            if(won){
+                g2d.setColor(Color.green);
+                info = "GAGNE !";
+            }
+            if(loose){
+                g2d.setColor(Color.red);
+                info = "PERDU :(";
+            }
+            g2d.drawString(info, (float) ((getWidth() - metrics.stringWidth(info))*0.5), (float) (getHeight() * 0.5));
         }
     }
 

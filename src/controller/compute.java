@@ -20,11 +20,11 @@ public class compute {
         Pion[] res = new Pion[ligne_size];
         for(int i=0;i<ligne_size;i++){
             if (duplicate){
-                res[i] = new Pion(Constantes.colors[(int)(Math.random()*dif)]);
+                res[i] = new Pion((int)(Math.random()*dif));
             }else{
-                Color tmpColor;
+                int tmpColor;
                 do {
-                    tmpColor = Constantes.colors[(int) (Math.random() * dif)];
+                    tmpColor = (int) (Math.random() * dif);
                 }while (Pion.containsColor(tmpColor, res));
                 res[i]=new Pion(tmpColor);
             }

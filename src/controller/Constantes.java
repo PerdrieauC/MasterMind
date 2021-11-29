@@ -16,10 +16,11 @@ public final class Constantes {
     public final static int colorsNumber=8;
 
 
+    public final static String[] difficulties={"easy","normal","hard"};
 
     public final static HashMap<String, Integer> colorNumber = new HashMap<>() {{
-        put("easy", 6);
-        put("normal", 7);
+        put("easy", 5);
+        put("normal", 6);
         put("hard", 8);
     }};
 
@@ -37,7 +38,7 @@ public final class Constantes {
 
     public final static HashMap<String, Boolean> remise = new HashMap<>() {{
         put("easy", Boolean.FALSE);
-        put("normal", Boolean.TRUE);
+        put("normal", Boolean.FALSE);
         put("hard", Boolean.TRUE);
     }};
 }

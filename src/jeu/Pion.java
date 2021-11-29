@@ -10,14 +10,17 @@ import java.io.Serializable;
  * Elle a comme attribut la couleur du pion
  */
 public class Pion implements Serializable {
-    private final Color couleur;
+    private final int couleurIndex;
 
-    public Pion(Color couleur) {
-        this.couleur = couleur;
+    public Pion(int couleur) {
+        this.couleurIndex = couleur ;
     }
 
     public Color getCouleur() {
-        return couleur;
+        return Constantes.colors[couleurIndex];
+    }
+    public int getCouleurIndex() {
+        return couleurIndex;
     }
 
     /**
@@ -26,19 +29,14 @@ public class Pion implements Serializable {
      * @param pions tableau de pions
      * @return vrai si le tableau contient la couleur
      */
-    public static boolean containsColor(Color c, Pion[] pions){
+    public static boolean containsColor(int c, Pion[] pions){
         for(Pion p: pions){
-            if(p!=null)if(p.getCouleur()==c)return true;
+            if(p!=null)if(p.getCouleurIndex()==c)return true;
         }
         return false;
     }
     @Override
     public String toString(){
-        for(int i = 0; i< Constantes.colorsNumber; i++){
-            if(this.couleur==Constantes.colors[i]){
-                return Constantes.colorsChar[i];
-            }
-        }
-        return null;
+        return Constantes.colorsChar[this.couleurIndex];
     }
 }

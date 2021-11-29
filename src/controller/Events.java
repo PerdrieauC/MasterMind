@@ -89,11 +89,11 @@ public class Events extends MouseAdapter {
     public void mouseReleased(MouseEvent e) {
         int index=getCircleClickedInput(e.getX(),e.getY());
         if(moovedColor>=0 && index>=0){
-            currentInput.addPions(index,new Pion(Constantes.colors[moovedColor]));
+            currentInput.addPions(index,new Pion(moovedColor));
         }
         index=getCircleClickedSelector(e.getX(),e.getY());
         if(index>=0){
-            currentInput.addPions(new Pion(Constantes.colors[index]));
+            currentInput.addPions(new Pion(index));
         }
 
 

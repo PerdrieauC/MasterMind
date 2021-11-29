@@ -12,6 +12,9 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 
+/**
+ * classe principal de l'affichage utilisateur
+ */
 public class Ui extends JPanel {
 
     Plateau plateau=null;

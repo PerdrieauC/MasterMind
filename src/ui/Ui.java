@@ -62,7 +62,7 @@ public class Ui extends JPanel {
 
         g2d.drawImage(background, 0, 0, getWidth(), getHeight(),this);
         if(plateau!=null)Draw.Plateau(g2d,plateau, getWidth(), getHeight(), listener.getMoovedColor(), listener.getX(), listener.getY());
-
+        //Draw.Hole(g2d,100,100,50);
         if(won || loose){
             String info = "";
 

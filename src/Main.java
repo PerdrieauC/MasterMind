@@ -8,23 +8,30 @@ import java.awt.*;
 public class Main {
 
     public static void main(String[] args){
-        System.setProperty("sun.java2d.opengl", "true");
+        //System.setProperty("sun.java2d.opengl", "true"); //opengl optimisation for performance
         JFrame frame = new JFrame();
         Ui panel = new Ui();
 
         frame.setSize(500, 1000);
         frame.setMinimumSize(new Dimension(400,800));
-        frame.setName("Mastermind");
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setContentPane(panel);
 
         Game mastermind = new Game("easy");
-        for(int i=0;i<12;i++){
+        if(compute.saveFound()) {
+            int result = JOptionPane.showConfirmDialog(frame, "Voulez vous reprendre la partie sauvegardée ?");
+            if(result==JOptionPane.YES_OPTION)System.out.println("ok");
+        }
+
+        for(int i=0;i<6;i++){
             mastermind.inputLigne(compute.getRandomCode(4,6,false));
         }
-        System.out.println(mastermind);
+        //System.out.println(mastermind); //logging if needed
 
+        /**
+         * framerate cap for performance
+         */
         final int FPS = 60;
         final int SKIP_TICKS = 1000 / FPS;
         final int MAX_FRAMESKIP = 5;

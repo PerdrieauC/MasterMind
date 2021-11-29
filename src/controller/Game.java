@@ -6,6 +6,9 @@ import jeu.Plateau;
 
 import java.io.Serializable;
 
+/**
+ * classe qui stock toute les informations d'une partie
+ */
 public class Game implements Serializable {
     private Plateau plateau;
     private int colorNumber;
@@ -24,6 +27,11 @@ public class Game implements Serializable {
         this.plateau = new Plateau(ligneSize, tryNumber, colorNumber, secretCode);
     }
 
+    /**
+     * ajouter une ligne à la partie
+     * genère aussi les indices associées
+     * @param l ligne à insérer
+     */
     public void inputLigne(Ligne l){
         if(l.getSize()==plateau.getLigneSize() && !win && !lose) {
             Clue tmpClue = compute.genClue(l, plateau.getSecretCode(), plateau.getLigneSize());

@@ -5,6 +5,11 @@ import java.util.HashMap;
 
 import static java.awt.Color.*;
 
+/**
+ * classe utilisée pour stocker des constantes
+ * les couleurs utilisée
+ * des hashmap pour choisir facilement la difficulté des parties
+ */
 public final class Constantes {
     public final static String[] colorsChar = {"rd", "bu", "gr", "wi", "bk", "mg", "or", "cy"};
     public final static Color[] colors = new Color[]{red, blue, green, white, black, magenta, orange, cyan};

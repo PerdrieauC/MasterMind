@@ -7,6 +7,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
+/**
+ * classe utilisée pour gérer les inputs utilisateurs
+ * clique de souris
+ * drap and drop
+ * reçoit les positions du selecteurs de la classe UI
+ */
 public class Events extends MouseAdapter {
     private int x=-100;//x mouse position
     private int y=-100;//y mouse position

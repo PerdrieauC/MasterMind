@@ -10,9 +10,21 @@ import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
+/**
+ * Librairie pour dessiner tous les objets du plateau
+ */
 public class Draw {
     public static final double MAX_CIRCLE_SIZE=0.7;
 
+    /**
+     * dessiner un cercle
+     * @param g2d object Graphic2D utilisé pour dessiner
+     * @param x position x
+     * @param y position y
+     * @param radius rayon du cercle
+     * @param c couleur du cercle
+     * @param shadowed dessiner une ombre ou pas
+     */
     public static void Circle(Graphics2D g2d, int x, int y, int radius, Color c,boolean shadowed) {
         double shadowSize = radius*0.1;
         x = (int) (x-(radius*0.5)); //draw centered
@@ -35,6 +47,13 @@ public class Draw {
         g2d.fillOval(x, y, radius, radius);
     }
 
+    /**
+     * dessiner un emplacement vide du plateau
+     * @param g2d object Graphic2D utilisé pour dessiner
+     * @param x position x
+     * @param y position y
+     * @param radius
+     */
     public static void Hole(Graphics2D g2d, int x, int y, int radius){
         double Contour_x = x-(radius*0.5); //draw centered
         double Contour_y = y-(radius*0.5);
@@ -58,6 +77,14 @@ public class Draw {
         g2d.fillOval((int) trou_x, (int) trou_y, radius, radius);
     }
 
+    /**
+     * dessiner un pion d'indice
+     * @param g2d object Graphic2D utilisé pour dessiner
+     * @param x position x
+     * @param y position y
+     * @param radius rayon
+     * @param perfect dessiner un perfect si vrai ou good si false
+     */
     public static void clue_pin(Graphics2D g2d, int x, int y, int radius, boolean perfect) {
         x = (int) (x-(radius*0.5)); //draw centered
         y = (int) (y-(radius*0.5));
@@ -78,6 +105,15 @@ public class Draw {
 
     }
 
+    /**
+     * dessiner tous les pions d'indices d'une ligne
+     * @param g2d object Graphic2D utilisé pour dessiner
+     * @param clue objet indice à dessiner
+     * @param size taille d'une ligne
+     * @param width largeur de la fenetre
+     * @param posY position Y
+     * @param lineHeight hauteur max d'une ligne
+     */
     public static void clues(Graphics2D g2d, Clue clue, int size, int width, int posY, int lineHeight){
         double marginLeft=width*0.10; //10%
         double marginRight=width*0.75; //10%
@@ -96,6 +132,15 @@ public class Draw {
         }
     }
 
+    /**
+     * dessiner tous les pions d'une ligne
+     * @param g2d object Graphic2D utilisé pour dessiner
+     * @param ligne ligne à dessiner
+     * @param size taille d'une ligne
+     * @param width largeur de la fenetre
+     * @param posY position y
+     * @param lineHeight taille maximal d'un ligne
+     */
     public static void Ligne(Graphics2D g2d, Ligne ligne, int size, int width, int posY, int lineHeight){
         double marginLeft=width*0.3; //10%
         double marginRight=width*0.15; //10%
@@ -116,6 +161,14 @@ public class Draw {
         Events.setInputPositions(res);
     }
 
+    /**
+     * dessiner une ligne vide (emplacement des pions)
+     * @param g2d object Graphic2D utilisé pour dessiner
+     * @param size taille de la ligne
+     * @param width largeur de la fenetre
+     * @param posY position y
+     * @param lineHeight taille maximal de la ligne
+     */
     public static void LigneVide(Graphics2D g2d, int size, int width, int posY, int lineHeight){
         double marginLeft=width*0.3; //10%
         double marginRight=width*0.15; //10%
@@ -140,6 +193,18 @@ public class Draw {
         }
     }
 
+    /**
+     * dessiner le selecteur de couleur utilisé par le joueur pour poser des pions
+     * @param g2d object Graphic2D utilisé pour dessiner
+     * @param moovedCircle indice de la couleur du cercle entrain d'être bougé
+     * @param moovedX position x du cercle entrain d'être bougé
+     * @param moovedY position y du cercle entrain d'être bougé
+     * @param colorNumber nombre de couleur utilisé dans cette partie
+     * @param size taille d'une ligne
+     * @param width largeur de la fenetre
+     * @param y position y où dessiner le selecteurs
+     * @param lineHeight taille maximum d'une ligne
+     */
     public static void Selector(Graphics2D g2d, int moovedCircle, int moovedX, int moovedY, int colorNumber, int size, int width, int y, int lineHeight){
         double marginLeft=width*0.3; //10%
         double marginRight=width*0.15; //10%
@@ -169,6 +234,16 @@ public class Draw {
         if(moovedCircle>=0)Draw.Circle(g2d, moovedX, moovedY, (int) circleRadius, Constantes.colors[moovedCircle],true);
     }
 
+    /**
+     * dessiner le plateau complet
+     * @param g2d object Graphic2D utilisé pour dessiner
+     * @param plateau objet plateau à dessiner
+     * @param width largeur de la fenetre
+     * @param height hauteur de la fenetre
+     * @param moovedCircle dessiner le cercle entrain d'être déplacé
+     * @param moovedX positon x du cercle entrain d'être déplacé
+     * @param moovedY positon y du cercle entrain d'être déplacé
+     */
     public static void Plateau(Graphics2D g2d, Plateau plateau, int width, int height, int moovedCircle, int moovedX, int moovedY){
         int marginTop = (int) (height*0.1); //10% top
         int marginBottom = (int) (height*0.2); //20% bottom
@@ -186,7 +261,7 @@ public class Draw {
 
         }
 
-        if(plateau.getInputSize()==lineNTotal) Draw.Ligne(g2d, plateau.getSecretCode(), plateau.getLigneSize(), width, height-marginBottom-plateau.size()*lineHeight, lineHeight); //current line we r inputing
+        if(plateau.getInputSize()==lineNTotal) Draw.Ligne(g2d, plateau.getSecretCode(), plateau.getLigneSize(), width, height-marginBottom-plateau.size()*lineHeight, lineHeight); //draw secret code if player loose
         else Draw.Ligne(g2d, Events.getCurrentInput(), plateau.getLigneSize(), width, height-marginBottom-plateau.size()*lineHeight, lineHeight); //current line we r inputing
 
         Draw.Selector(g2d, moovedCircle,moovedX,moovedY,plateau.getColor_number(),plateau.getLigneSize(), width, height-marginBottom/2, lineHeight);
